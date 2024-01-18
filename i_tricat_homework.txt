@@ -1,13 +1,40 @@
 import math
 import numpy as np
 import matplotlib.pyplot as plt
+"""파이썬 내장함수 사용"""
 
 class Calculator:
+    """
+    Calculator 클래스는 기본적인 수학 연산 및 중위 표기법을 후위 표기법으로 변환하는 기능을 제공합니다.
+
+    
+
+    메소드:
+        is_operator(token): 주어진 토큰이 연산자인지 확인합니다.
+        precedence(operator): 연산자의 우선순위를 반환합니다.
+        infix_to_postfix(infix_expression): 중위 표기법을 후위 표기법으로 변환합니다. 예시로 a + (b * c) / d
+        evaluate_postfix(postfix_expression): 후위 표기법을 평가합니다. 예시로 a b c * +
+        calculate(expression): 수학 표현식을 구문 분석하고 계산합니다.
+
+    사용 예시:
+        calculator = Calculator()
+        result = calculator.calculate("3 + 4 * (2 - 1)")
+        print(result)
+    """
     def __init__(self):
         pass
 
     def is_operator(self, token):
         return token in {'+', '-', '*', '/'}
+        """
+        주어진 토큰이 연산자인지 확인합니다.
+
+        매개변수:
+            token (str): 확인할 토큰.
+
+        반환값:
+            bool: 토큰이 연산자이면 True, 그렇지 않으면 False.
+        """
 
     def precedence(self, operator):
         if operator in {'+', '-'}:
@@ -16,12 +43,19 @@ class Calculator:
             return 2
         else:
             return 0
+        """
+        연산자의 우선순위를 반환합니다.
 
+        매개변수:
+            operator (str): 우선순위를 확인할 연산자.
+
+        반환값:
+            int: 연산자의 우선순위.
+        """
     def infix_to_postfix(self, infix_expression):
         postfix_expression = []
         operator_stack = []
         paren_stack = []
-
         for token in infix_expression:
             if token.replace('.', '', 1).isdigit() or (token[0] == '-' and token[1:].replace('.', '', 1).isdigit()):
                 postfix_expression.append(float(token))
@@ -51,6 +85,15 @@ class Calculator:
 
         return postfix_expression
 
+        """
+        중위 표기법을 후위 표기법으로 변환합니다.
+
+        매개변수:
+            infix_expression (list): 변환할 중위 표기법의 토큰 리스트.
+
+        반환값:
+            list: 후위 표기법으로 변환된 토큰 리스트.
+        """
     def evaluate_postfix(self, postfix_expression):
         operand_stack = []
 
@@ -61,7 +104,7 @@ class Calculator:
                 elif token == 'e':
                     operand_stack.append(math.e)
                 else:
-                    operand_stack.append(token)  # 상수 또는 숫자를 그대로 추가
+                    operand_stack.append(token)  
             elif self.is_operator(token):
                 if len(operand_stack) < 2:
                     raise ValueError("Not enough operands for operator {}".format(token))
@@ -79,7 +122,8 @@ class Calculator:
                             raise ValueError("Cannot divide by zero")
                         result = a / b
                     operand_stack.append(result)
-
+    #위 부분은 사칙연산에 관한 코드이다
+    
         if len(operand_stack) == 1:
             return operand_stack[0]
         else:
@@ -93,7 +137,15 @@ class Calculator:
             return result
         except ValueError as e:
             raise ValueError("Error in expression: {}".format(e))
+        """
+        수학 표현식을 구문 분석하고 계산합니다.
 
+        매개변수:
+            expression (str): 계산할 수학 표현식.
+
+        반환값:
+            float: 계산 결과.
+        """
 
 class EngineeringCalculator(Calculator):
     def __init__(self):
@@ -111,7 +163,8 @@ class EngineeringCalculator(Calculator):
     def tangent(self, angle_degrees):
         return math.tan(math.radians(angle_degrees))
 
-    def factorial(self, n):
+    def factorial(self, n):                                                   
+    
         if n == 0 or n == 1:
             return 1
         else:
@@ -125,6 +178,7 @@ class EngineeringCalculator(Calculator):
 
     def matrix_multiply(self, matrix_a, matrix_b):
         return np.dot(matrix_a, matrix_b)
+    """행렬에 대한 코드"""
 
     def plot_function(self, func, start, end, step=0.1):
         x_values = np.arange(start, end + step, step)
@@ -138,7 +192,11 @@ class EngineeringCalculator(Calculator):
         plt.show()
 
 engineer_calc = EngineeringCalculator()
-
+"""
+아래 계산식은 한글로 된 부분을 제외한
+영어로 입력된 코드에 # 부분을 제거하고 코드를 실행해야한다
+각 부분에 맞는 행렬, 그래프 등의 계산을 적어놓았다.
+"""
 #사칙연산 계산기
 #calculator = Calculator()
 #expression = input("계산할 식을 입력하세요. (예: 3 + 4 * ( 2 - 1 ) ) : ")
@@ -157,12 +215,12 @@ engineer_calc = EngineeringCalculator()
 #calculator_instance.plot_function(math.cos, 0, 2 * math.pi)
 
 #행렬 생성 계산 예시
-"""matrix_a = np.array([[1, 2], [3, 4]])
-matrix_b = np.array([[5, 6], [7, 8]])
-result_matrix = np.dot(matrix_a, matrix_b)
-print("Matrix A:")
-print(matrix_a)
-print("Matrix B:")
-print(matrix_b)
-print("Result of Matrix Multiplication:")
-print(result_matrix)"""
+#matrix_a = np.array([[1, 2], [3, 4]])
+#matrix_b = np.array([[5, 6], [7, 8]])
+#result_matrix = np.dot(matrix_a, matrix_b)
+#print("Matrix A:")
+#print(matrix_a)
+#print("Matrix B:")
+#print(matrix_b)
+#print("Result of Matrix Multiplication:")
+#print(result_matrix)
