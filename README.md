@@ -3,12 +3,12 @@ class Calculator:
     """
     계산기 클래스
 
-    메서드:
-        __init__(): 생성자 메서드.
+    메소드:
+        __init__(): 생성자 메소드.
         is_operator(token): 주어진 토큰이 산술 연산자인지 확인합니다.
         precedence(operator): 주어진 연산자의 우선순위를 반환합니다.
-        infix_to_postfix(infix_expression): 중위 표현식을 후위 표기법으로 변환합니다.
-        evaluate_postfix(postfix_expression): 후위 표현식을 평가합니다.
+        infix_to_postfix(infix_expression): 중위 표현식을 후위 표기법으로 변환합니다.  a + (b * c) / d <--중위 표현식 
+        evaluate_postfix(postfix_expression): 후위 표현식을 평가합니다. a b c * + <-- 괄호 스택을 처리하는데 용이
         calculate(expression): 산술 표현식을 파싱하고 결과를 계산합니다.
     """
 
@@ -145,7 +145,7 @@ class Calculator:
         except ValueError as e:
             raise ValueError("표현식 오류: {}".format(e))
 
-# 사용 예시
+# 사용 예시 #띄어쓰기를 처리했으므로 3+4 방식이 아닌 3 + 4 로 사용, 괄호표현도 똑같다.
 calculator = Calculator()
 expression = input("계산할 식을 입력하세요. (예: 3 + 4 * ( 2 - 1 ) ) : ")
 try:
